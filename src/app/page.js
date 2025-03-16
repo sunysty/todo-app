@@ -10,6 +10,13 @@ const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [todos, setTodos] = useState([]);
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Supabase의 onAuthStateChange를 사용하여 인증 상태를 관리합니다.
+  supabase.auth.onAuthStateChange((_, session) => {
+    setIsAuthenticated(!!session);
+  });
+
   const fetchTodos = async () => {
     const {
       data: { user },
@@ -108,11 +115,19 @@ const HomePage = () => {
 
   return (
     <div>
-      <TodoSection
-        todos={todos}
-        handleTodoComplete={handleTodoComplete}
-        handleDeleteTodo={handleDeleteTodo}
-      />
+      {isAuthenticated ? (
+        <TodoSection
+          todos={todos}
+          handleTodoComplete={handleTodoComplete}
+          handleDeleteTodo={handleDeleteTodo}
+        />
+      ) : (
+        <div className="flex items-center justify-center h-screen bg-gray-100">
+          <h1 className="text-2xl font-bold text-gray-800">
+            로그인 후 이용해주세요.
+          </h1>
+        </div>
+      )}
       <FloatingButton onClick={() => setShowModal(true)} />
       <TaskModal
         handleAddTodo={handleAddTodo}
