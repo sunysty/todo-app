@@ -18,7 +18,7 @@ const Navigation = () => {
   return (
     <nav className="flex justify-between items-center px-8 py-4 bg-white shadow-md">
       <div className="text-2xl font-bold text-gray-800">
-        <Link href="/">ToDo 앱</Link>
+        <Link href="/">휘담의 투두앱</Link>
       </div>
       <ul className="flex space-x-6">
         <li className="text-gray-600 hover:text-purple-700 cursor-pointer transition-colors">
